@@ -2,6 +2,7 @@ import Category from "./Category";
 import Featured from "./Featured";
 import PopularMenu from "./PopularMenu";
 import Slider from "./Slider";
+import Testimonials from "./Testimonials";
 
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
       <Category></Category>
       <PopularMenu></PopularMenu>
       <Featured></Featured>
+      <Testimonials></Testimonials>
     </div>
   );
 };
