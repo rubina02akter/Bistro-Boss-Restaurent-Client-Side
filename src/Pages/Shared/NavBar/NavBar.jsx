@@ -62,6 +62,18 @@ const NavBar = () => {
              Menu
             </NavLink>
           </li>
+          <li>
+          <NavLink
+              to="/our-shop"
+              className={({ isActive }) =>
+                `flex items-center gap-2 hover:text-gray-300 ${
+                  isActive ? "text-blue-500" : "text-white"
+                }`
+              }
+            >
+            Our Shop
+            </NavLink>
+          </li>
           {/* {user ? ( */}
           <div className="flex gap-4">
             {/* <li>
