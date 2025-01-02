@@ -74,6 +74,19 @@ const NavBar = () => {
             Our Shop
             </NavLink>
           </li>
+          <li>
+          <NavLink
+              to="/order"
+              className={({ isActive }) =>
+                `flex items-center gap-2 hover:text-gray-300 ${
+                  isActive ? "text-blue-500" : "text-white"
+                }`
+              }
+            >
+            Order
+            </NavLink>
+          </li>
+         
           {/* {user ? ( */}
           <div className="flex gap-4">
             {/* <li>
@@ -186,7 +199,7 @@ const NavBar = () => {
               </li>
               <li>
                 <NavLink
-                  to="/all-queries"
+                  to="/menu"
                   className={({ isActive }) =>
                     `flex items-center gap-2 hover:text-gray-300 ${
                       isActive ? "text-blue-500" : "text-white"
@@ -194,7 +207,7 @@ const NavBar = () => {
                   }
                   onClick={toggleMenu}
                 >
-                  <FiHelpCircle /> Queries
+                  <FiHelpCircle />Menu
                 </NavLink>
               </li>
 
@@ -202,7 +215,7 @@ const NavBar = () => {
               <div className="flex flex-col gap-4">
                 <li>
                   <NavLink
-                    to="/recommendations"
+                    to="/our-shop"
                     className={({ isActive }) =>
                       `flex items-center gap-2 hover:text-gray-300 ${
                         isActive ? "text-blue-500" : "text-white"
@@ -210,12 +223,12 @@ const NavBar = () => {
                     }
                     onClick={toggleMenu}
                   >
-                    <FiStar /> Recommendations For Me
+                    <FiStar /> Our Shop
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
-                    to="/my-queries"
+                    to="/order"
                     className={({ isActive }) =>
                       `flex items-center gap-2 hover:text-gray-300 ${
                         isActive ? "text-blue-500" : "text-white"
@@ -223,7 +236,7 @@ const NavBar = () => {
                     }
                     onClick={toggleMenu}
                   >
-                    <FiHelpCircle /> My Queries
+                    <FiHelpCircle /> Order
                   </NavLink>
                 </li>
                 <li>

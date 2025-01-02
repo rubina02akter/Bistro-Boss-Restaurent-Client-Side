@@ -21,7 +21,7 @@ const Featured = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita alias
             voluptatum id quas officia, saepe voluptas quae enim animi reprehenderit.
           </p>
-          <button className="btn btn-outline border-0 border-b-4 text-white my-5">Read more</button>
+          <button className="btn btn-outline border-0 border-b-4 text-white my-5">Order Now</button>
         </div>
       </div>
     </div>
