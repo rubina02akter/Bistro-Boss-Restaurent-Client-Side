@@ -1,4 +1,3 @@
-// এটা ইউজ করার আগে কয়েকটা প্যাকেজ ইন্সটল দিও
 // 1. React Router Dom - npm install react-router-dom
 // 2. React Icons - npm install react-icons
 // 3. Framer Motion - npm install framer-motion
@@ -76,7 +75,7 @@ const NavBar = () => {
           </li>
           <li>
           <NavLink
-              to="/order"
+              to="/order/salad"
               className={({ isActive }) =>
                 `flex items-center gap-2 hover:text-gray-300 ${
                   isActive ? "text-blue-500" : "text-white"
@@ -228,7 +227,7 @@ const NavBar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/order"
+                    to="/order/salad"
                     className={({ isActive }) =>
                       `flex items-center gap-2 hover:text-gray-300 ${
                         isActive ? "text-blue-500" : "text-white"
@@ -239,19 +238,7 @@ const NavBar = () => {
                     <FiHelpCircle /> Order
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    to="/my-recommendations"
-                    className={({ isActive }) =>
-                      `flex items-center gap-2 hover:text-gray-300 ${
-                        isActive ? "text-blue-500" : "text-white"
-                      }`
-                    }
-                    onClick={toggleMenu}
-                  >
-                    <FiStar /> My Recommendations
-                  </NavLink>
-                </li>
+               
                 <li>
                   <button
                     // onClick={() => {

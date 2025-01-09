@@ -11,16 +11,17 @@ import { Helmet } from "react-helmet-async";
 const Order = () => {
   const categories = ['salad, pizza, soup, dessert, drinks']
   const {category} = useParams();
-  const initialIndex = categories.indexOf(categories)
-  const [tabIndex, setTabIndex] = useState(0);
+  console.log(category);
+
+  const initialIndex = categories.indexOf(category)
+  const [tabIndex, setTabIndex] = useState(initialIndex);
   const [menu] = useMenu();
 
-
-  const dessert = menu.filter((item) => item.category === "dessert");
-  const soup = menu.filter((item) => item.category === "soup");
-  const salad = menu.filter((item) => item.category === "salad");
-  const pizza = menu.filter((item) => item.category === "pizza");
-  const drinks = menu.filter((item) => item.category === "drinks");
+  const dessert = menu.filter(item => item.category === 'dessert');
+  const soup = menu.filter(item => item.category === 'soup');
+  const salad = menu.filter(item => item.category === 'salad');
+  const pizza = menu.filter(item => item.category === 'pizza');
+  const drinks = menu.filter(item => item.category === 'drinks');
 
   return (
     <div>
@@ -28,6 +29,7 @@ const Order = () => {
                 <title>Bistro Boss | Order Food</title>
             </Helmet>
             <Cover img={orderImg} title="Order Food"></Cover>
+
             <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList>
                     <Tab>Salad</Tab>
@@ -42,7 +44,7 @@ const Order = () => {
                 <TabPanel>
                     <OrderTab items={pizza}></OrderTab>
                 </TabPanel>
-                <TabPanel>
+                <TabPanel> 
                     <OrderTab items={soup}></OrderTab>
                 </TabPanel>
                 <TabPanel>

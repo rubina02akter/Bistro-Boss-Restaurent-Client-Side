@@ -9,9 +9,6 @@ import useMenu from "../../Hooks/useMenu";
 import SectionTitle from "../../components/Shared/SectionTitle";
 import MenuCategory from "./MenuCategory";
 
-
-
-
 const Menu = () => {
   const [menu] = useMenu();
   const dessert = menu.filter(item => item.category === 'dessert')
@@ -31,7 +28,7 @@ const Menu = () => {
         subHeading={"---don't miss---"}
         heading={"today's offer"}></SectionTitle>
        {/* offered menu items */}
-        <MenuCategory items={offered}></MenuCategory>
+        <MenuCategory items={offered} ></MenuCategory>
       
       {/* dessert menu items */}
       <MenuCategory items={dessert} title={'dessert'} img={dessertImg}></MenuCategory>

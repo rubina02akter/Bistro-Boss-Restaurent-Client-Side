@@ -1,17 +1,17 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Firebase configuration using environment variables
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
+  apiKey: "AIzaSyD2ACHPhXYsG8ywLoHB73ut5dbi-a1cJqQ",
+  authDomain: "web-project-22c2c.firebaseapp.com",
+  projectId: "web-project-22c2c",
+  storageBucket: "web-project-22c2c.firebasestorage.app",
+  messagingSenderId: "1023300331585",
+  appId: "1:1023300331585:web:b1d3537833c1695cbb3ec0"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-export default app;
