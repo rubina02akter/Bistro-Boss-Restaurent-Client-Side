@@ -96,6 +96,18 @@ const NavBar = () => {
           Order
         </NavLink>
       </li>
+      <li key="order">
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
       <li key="myOrder">
         <NavLink
           to="myOrder"

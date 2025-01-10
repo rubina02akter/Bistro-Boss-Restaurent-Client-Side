@@ -4,8 +4,11 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import SocialLogIn from "../LogIn/SocialLogIn";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -22,16 +25,28 @@ const SignUp = () => {
       console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
-          console.log("user profile info updated");
-          reset();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "User created successfully.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/");
+         //create user entry in the datbase
+         const userInfo = {
+          name: data.name,
+          email: data.email
+
+         }
+         axiosPublic.post('/users',userInfo)
+         .then(res => {
+          console.log('user added to the database');
+          if(res.data.insertedId){
+            reset();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "User created successfully.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          }
+         })
+      
         })
         .catch((error) => console.log(error));
     });
@@ -42,17 +57,8 @@ const SignUp = () => {
       <Helmet>
         <title>Bistro Boss | Sign Up</title>
       </Helmet>
-      <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Sign up now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-          </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div className="flex justify-center">
+    <div className="card  w-full max-w-sm shadow-2xl bg-base-100">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
@@ -144,14 +150,19 @@ const SignUp = () => {
                 />
               </div>
             </form>
-            <p>
-              <small>
-                Already have an account <Link to="/login">Login</Link>
-              </small>
+            <div className="divide-x-0"></div>
+           <div className="flex flex-col justify-center items-center">
+           <SocialLogIn></SocialLogIn>
+            <p className="p-6">
+              
+                Already have an account <Link to="/login" className="text-green-900 underline">Login</Link>
+            
             </p>
+           </div>
           </div>
-        </div>
-      </div>
+    </div>
+         
+        
     </>
   );
 };

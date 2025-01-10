@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthProvider";
+import SocialLogIn from "./SocialLogIn";
 
 const LogIn = () => {
   const {signIn} = useContext(AuthContext)
@@ -121,9 +122,13 @@ const LogIn = () => {
                 />
               </div>
             </form>
-            <p>
+            <div className="divide-x-0"></div>
+           <div className="flex flex-col justify-center items-center">
+           <SocialLogIn></SocialLogIn>
+            </div>
+            <p className="text-center p-4">
               <small>
-                New Here? <Link to="/signup" className="underline btn">Create an account</Link>{" "}
+                New Here? <Link to="/signup" >Create an account</Link>{" "}
               </small>
             </p>
           </div>

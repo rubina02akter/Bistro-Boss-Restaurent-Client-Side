@@ -1,15 +1,39 @@
-import { FaAddressBook, FaCircle, FaCuttlefish, FaHome, FaShoppingCart, FaTable } from "react-icons/fa";
+import { FaAddressBook, FaCircle, FaCuttlefish, FaHome, FaList, FaShoppingCart, FaTable, FaUsers, FaUtensils, FaVoicemail } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../Hooks/useCart";
 
 
 const Dashboard = () => {
   const[cart] = useCart();
+
+  //TODO: get admin from the database
+  const isAdmin = true;
+
   return (
     <div className="flex">
       <div className="w-64 min-h-screen bg-[#D1A054] py-12">
      <ul className="menu p-4">
+       {
+        isAdmin ? <>
+        <li>
+      <NavLink to='/dashboard/adminHome'><FaHome></FaHome>Admin Home</NavLink>
+      </li>
      <li>
+      <NavLink to='/dashboard/addItems'><FaUtensils></FaUtensils>Add Items</NavLink>
+      </li>
+     <li>
+      <NavLink to='/dashboard/manageItems'><FaList></FaList>Manage Items</NavLink>
+      </li>
+     <li>
+      <NavLink to='/dashboard/manageBookings'><FaAddressBook></FaAddressBook>Manage Bookings</NavLink>
+      </li>
+     <li>
+      <NavLink to='/dashboard/allUser'><FaUsers></FaUsers>All User</NavLink>
+      </li>
+        </>
+        : 
+        <>
+        <li>
       <NavLink to='/dashboard/userHome'><FaHome></FaHome>User Home</NavLink>
       </li>
      <li>
@@ -24,6 +48,11 @@ const Dashboard = () => {
      <li>
       <NavLink to='/dashboard/bookings'><FaAddressBook></FaAddressBook>My bookings</NavLink>
       </li>
+        </>
+       }
+
+
+      {/* sharerd */}
       <div className="divider"><FaCircle></FaCircle></div>
      <li>
       <NavLink to='/'><FaHome></FaHome>Home</NavLink>
@@ -33,6 +62,9 @@ const Dashboard = () => {
       </li>
      <li>
       <NavLink to='/order/salad'><FaCuttlefish></FaCuttlefish> Order</NavLink>
+      </li>
+     <li>
+      <NavLink to='/contact'><FaVoicemail></FaVoicemail>Contact</NavLink>
       </li>
      </ul>
       </div>
