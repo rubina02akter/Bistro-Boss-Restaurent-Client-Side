@@ -7,14 +7,17 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const LogIn = () => {
+  const {signIn} = useContext(AuthContext)
   const [disabled, setDisabled] = useState(true);
-
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
+  console.log('Location state:', location.state);
+
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -26,20 +29,21 @@ const LogIn = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    // signIn(email, password).then((result) => {
-    //   const user = result.user;
-    //   console.log(user);
-    //   Swal.fire({
-    //     title: "User Login Successful.",
-    //     showClass: {
-    //       popup: "animate__animated animate__fadeInDown",
-    //     },
-    //     hideClass: {
-    //       popup: "animate__animated animate__fadeOutUp",
-    //     },
-    //   });
-    //   navigate(from, { replace: true });
-    // });
+    signIn(email, password)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      Swal.fire({
+        title: "User Login Successful.",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
+      });
+      navigate(from, { replace: true });
+    });
   };
 
   const handleValidateCaptcha = (e) => {
@@ -109,7 +113,8 @@ const LogIn = () => {
               </div>
               <div className="form-control mt-6">
                 <input
-                  disabled={disabled}
+                // todo: add disabled
+                  disabled={false}
                   className="btn btn-primary"
                   type="submit"
                   value="Login"
@@ -118,7 +123,7 @@ const LogIn = () => {
             </form>
             <p>
               <small>
-                New Here? <Link to="/signup">Create an account</Link>{" "}
+                New Here? <Link to="/signup" className="underline btn">Create an account</Link>{" "}
               </small>
             </p>
           </div>

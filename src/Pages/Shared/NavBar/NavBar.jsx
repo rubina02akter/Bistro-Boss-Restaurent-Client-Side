@@ -1,165 +1,186 @@
-// 1. React Router Dom - npm install react-router-dom
-// 2. React Icons - npm install react-icons
-// 3. Framer Motion - npm install framer-motion
-
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FiMenu,
   FiX,
   FiHome,
-  FiHelpCircle,
   FiLogOut,
-  FiStar,
 } from "react-icons/fi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-// import useAuth from "../AuthPorvider/useAuth";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
+import userImg from "../../../assets/others/profile.png";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../../Hooks/useCart";
 
 const NavBar = () => {
-  // const { logOut, user, setUser, loading } = useAuth();
+  const { logOut, user, loading } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const [cart] = useCart();
+
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Logged out successfully.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/");
+      })
+      .catch((error) => console.error("Logout Error:", error.message));
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  // if (loading)
-  //   return (
-  //     <div className="h-[100vh] flex justify-center items-center ">
-  //       <span className="loading loading-ring loading-lg"></span>
-  //     </div>
-  //   );
+
+  if (loading) {
+    return (
+      <div className="h-[100vh] flex justify-center items-center">
+        <span className="loading loading-ring loading-lg"></span>
+      </div>
+    );
+  }
+
+  const links = (
+    <>
+      <li key="home">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          <FiHome /> Home
+        </NavLink>
+      </li>
+      <li key="menu">
+        <NavLink
+          to="/menu"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          Menu
+        </NavLink>
+      </li>
+      <li key="shop">
+        <NavLink
+          to="/our-shop"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          Our Shop
+        </NavLink>
+      </li>
+      <li key="order">
+        <NavLink
+          to="/order/salad"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          Order
+        </NavLink>
+      </li>
+      <li key="myOrder">
+        <NavLink
+          to="myOrder"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          My Order
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/dashboard/cart"
+          className={({ isActive }) =>
+            `flex items-center gap-2 hover:text-gray-300 ${
+              isActive ? "text-blue-500" : "text-white"
+            }`
+          }
+        >
+          <button className="flex items-center mt-1">
+          <FaShoppingCart />
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </NavLink>
+      </li>
+    </>
+  );
+
   return (
-    <nav className= "text-white fixed w-full z-50 bg-opacity-40 bg-black">
+    <nav className="text-white fixed w-full z-50 bg-opacity-40 bg-black">
       <div className="container mx-auto flex justify-between items-center p-4">
-        {/* Logo */}
         <div className="text-xl font-bold">Bistro-Boss</div>
+        <ul className="hidden lg:flex gap-8">{links}</ul>
 
-        {/* Desktop Menu */}
-        <ul className="hidden lg:flex gap-8">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `flex items-center gap-2 hover:text-gray-300 ${
-                  isActive ? "text-blue-500" : "text-white"
-                }`
-              }
-            >
-              <FiHome /> Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/menu"
-              className={({ isActive }) =>
-                `flex items-center gap-2 hover:text-gray-300 ${
-                  isActive ? "text-blue-500" : "text-white"
-                }`
-              }
-            >
-             Menu
-            </NavLink>
-          </li>
-          <li>
-          <NavLink
-              to="/our-shop"
-              className={({ isActive }) =>
-                `flex items-center gap-2 hover:text-gray-300 ${
-                  isActive ? "text-blue-500" : "text-white"
-                }`
-              }
-            >
-            Our Shop
-            </NavLink>
-          </li>
-          <li>
-          <NavLink
-              to="/order/salad"
-              className={({ isActive }) =>
-                `flex items-center gap-2 hover:text-gray-300 ${
-                  isActive ? "text-blue-500" : "text-white"
-                }`
-              }
-            >
-            Order
-            </NavLink>
-          </li>
-         
-          {/* {user ? ( */}
-          <div className="flex gap-4">
-            {/* <li>
-              <NavLink
-                to="/recommendations"
-                className={({ isActive }) =>
-                  `flex items-center gap-2 hover:text-gray-300 ${
-                    isActive ? "text-blue-500" : "text-white"
-                  }`
-                }
+        <div>
+          
+          {user ? (
+            <div className="dropdown dropdown-end z-50">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
               >
-                <FiStar /> Recommendations For Me
-              </NavLink>
-            </li> */}
-            {/* <li>
-              <NavLink
-                to="/my-queries"
-                className={({ isActive }) =>
-                  `flex items-center gap-2 hover:text-gray-300 ${
-                    isActive ? "text-blue-500" : "text-white"
-                  }`
-                }
+                <div
+                  title={user?.displayName || "User"}
+                  className="w-10 rounded-full tooltip"
+                  data-tip={user?.displayName}
+                >
+                  <img
+                    referrerPolicy="no-referrer"
+                    alt="User Profile Photo"
+                    src={user?.photoURL || userImg}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box md:w-52 w-32 text-xs"
               >
-                <FiHelpCircle /> My Queries
-              </NavLink>
-            </li> */}
-            {/* <li>
-              <NavLink
-                to="/my-recommendations"
-                className={({ isActive }) =>
-                  `flex items-center gap-2 hover:text-gray-300 ${
-                    isActive ? "text-blue-500" : "text-white"
-                  }`
-                }
-              >
-                <FiStar /> My Recommendations
-              </NavLink>
-            </li> */}
-          </div>
-          {/* ) : (
-            ""
-          )} */}
-        </ul>
-        <ul>
-          {/* {user ? ( */}
-          <li className="lg:block hidden">
-            <button
-              // onClick={() => {
-              //   logOut().then(() => {
-              //     navigate("/login");
-              //   });
-              // }}
-              className="flex  items-center gap-2 hover:text-gray-300 text-white"
-            >
-              <FiLogOut /> Logout
-            </button>
-          </li>
-          {/* ) : ( */}
-          <li className="lg:block hidden">
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `flex items-center gap-2  hover:text-gray-300 ${
-                  isActive ? "text-blue-500" : "text-white"
-                }`
-              }
-            >
-              <FiLogOut /> Login
-            </NavLink>
-          </li>
-          {/* )} */}
-        </ul>
+                <li className="mt-2">
+                  <button
+                    onClick={handleSignOut}
+                    className="bg-gray-200 block text-center"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="rounded-full flex items-center gap-2">
+              <img
+                src={userImg}
+                alt="user"
+                className=" w-10 h-10 rounded-full"
+              />
+              <Link className="btn btn-outline mr-2" to="/login">
+                Log in
+              </Link>
+            </div>
+          )}
+        </div>
 
-        {/* Mobile Menu Button */}
         <button className="lg:hidden focus:outline-none" onClick={toggleMenu}>
           {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
@@ -172,7 +193,7 @@ const NavBar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.3 }}
-            className="fixed top-0 right-0 h-full w-2/3 bg-gray-800 text-white shadow-lg z-50 lg:hidden"
+            className="fixed top-0 right-0 h-full w-1/3 md:w-1/2 bg-black bg-opacity-45 backdrop-blur-md text-white shadow-lg z-50 lg:hidden"
           >
             <div className="flex justify-between items-center p-4 border-b border-gray-700">
               <span className="text-xl font-bold"></span>
@@ -180,92 +201,31 @@ const NavBar = () => {
                 <FiX size={24} />
               </button>
             </div>
-
-            {/* Menu Items */}
             <ul className="flex flex-col gap-4 p-6">
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 hover:text-gray-300 ${
-                      isActive ? "text-blue-500" : "text-white"
-                    }`
-                  }
-                  onClick={toggleMenu}
-                >
-                  <FiHome /> Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/menu"
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 hover:text-gray-300 ${
-                      isActive ? "text-blue-500" : "text-white"
-                    }`
-                  }
-                  onClick={toggleMenu}
-                >
-                  <FiHelpCircle />Menu
-                </NavLink>
-              </li>
-
-              {/* {user ? ( */}
-              <div className="flex flex-col gap-4">
-                <li>
-                  <NavLink
-                    to="/our-shop"
-                    className={({ isActive }) =>
-                      `flex items-center gap-2 hover:text-gray-300 ${
-                        isActive ? "text-blue-500" : "text-white"
-                      }`
-                    }
-                    onClick={toggleMenu}
-                  >
-                    <FiStar /> Our Shop
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/order/salad"
-                    className={({ isActive }) =>
-                      `flex items-center gap-2 hover:text-gray-300 ${
-                        isActive ? "text-blue-500" : "text-white"
-                      }`
-                    }
-                    onClick={toggleMenu}
-                  >
-                    <FiHelpCircle /> Order
-                  </NavLink>
-                </li>
-               
+              {links}
+              {user ? (
                 <li>
                   <button
-                    // onClick={() => {
-                    //   logOut().then(() => {
-                    //     navigate("/login");
-                    //   });
-                    // }}
+                    onClick={handleSignOut}
                     className="flex items-center gap-2 hover:text-gray-300 text-white"
                   >
                     <FiLogOut /> Logout
                   </button>
                 </li>
-              </div>
-              {/* ) : ( */}
-              <li>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 hover:text-gray-300 ${
-                      isActive ? "text-blue-500" : "text-white"
-                    }`
-                  }
-                >
-                  <FiLogOut /> Login
-                </NavLink>
-              </li>
-              {/* )} */}
+              ) : (
+                <li>
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 hover:text-gray-300 ${
+                        isActive ? "text-blue-500" : "text-white"
+                      }`
+                    }
+                  >
+                    <FiLogOut /> Login
+                  </NavLink>
+                </li>
+              )}
             </ul>
           </motion.div>
         )}
