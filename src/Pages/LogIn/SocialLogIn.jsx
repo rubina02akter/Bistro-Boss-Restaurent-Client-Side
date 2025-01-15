@@ -9,7 +9,7 @@ const SocialLogIn = () => {
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () =>{
-          googleSignIn()
+      googleSignIn()
           .then(result => {
             console.log(result.user)
             const userInfo = {

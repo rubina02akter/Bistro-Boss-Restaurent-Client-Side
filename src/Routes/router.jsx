@@ -12,6 +12,14 @@ import Dashboard from "../Layout/Dashboard";
 import Cart from "../Dashboard/Cart/Cart";
 import Contact from "../Dashboard/Contact/Contact";
 import AllUser from "../Dashboard/AllUsers/AllUser";
+import AddItem from "../Dashboard/AddItem/AddItem";
+import AdminRoute from "./AdminRoute";
+import ManageItems from "../Dashboard/ManageItems/ManageItems";
+import UpdateItem from "../Dashboard/ManageItems/UpdateItem";
+import Payment from "../Dashboard/Payment/Payment";
+import PaymentHistory from "../Dashboard/PaymentHistory/PaymentHistory";
+import UserHome from "../Dashboard/UserHome/UserHome";
+import AdminHome from "../Dashboard/AdminHome/AdminHome";
 
 
 const router = createBrowserRouter([
@@ -65,34 +73,53 @@ const router = createBrowserRouter([
   children: [
     {
       path: 'userHome',
-      element: <Cart></Cart>
+     element: <UserHome></UserHome>
 
     },
+    //normal use
+
     {
       path: 'cart',
       element: <Cart></Cart>
 
     },
     {
-      path: 'reservation',
-      element: <Cart></Cart>
+      path: 'payment',
+      element: <Payment></Payment>
 
     },
-    {
-      path: 'review',
-      element: <Cart></Cart>
 
-    },
-    {
-      path: 'bookings',
-      element: <Cart></Cart>
-
-    },
     //admin routes
     {
+      path: 'adminHome',
+      element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+    },
+    {
       path: 'allUser',
-      element: <AllUser></AllUser>
-    }
+      element: <AdminRoute><AllUser></AllUser></AdminRoute>
+    },
+    {
+      path: 'addItem',
+      element: <AdminRoute><AddItem></AddItem></AdminRoute>
+    },
+    {
+      path: 'manageItems',
+      element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+    },
+    // {
+    //   path: 'updateItem/:id',
+    //   element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+    //   loader: ({params}) => fetch (`http://localhost:5000/menu/${params.id}`)
+    // },
+    {
+      path: 'updateItem/:id',
+      element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+      loader: ({params}) => fetch(`https://bistro-boss-server-side-brown.vercel.app/menu/${params.id}`)
+    },
+    {
+      path: 'paymentHistory',
+      element: <PaymentHistory></PaymentHistory>
+    },
   
   ]
 }

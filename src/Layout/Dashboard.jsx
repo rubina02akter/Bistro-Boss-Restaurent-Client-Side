@@ -20,7 +20,7 @@ const Dashboard = () => {
       <NavLink to='/dashboard/adminHome'><FaHome></FaHome>Admin Home</NavLink>
       </li>
      <li>
-      <NavLink to='/dashboard/addItems'><FaUtensils></FaUtensils>Add Items</NavLink>
+      <NavLink to='/dashboard/addItem'><FaUtensils></FaUtensils>Add Items</NavLink>
       </li>
      <li>
       <NavLink to='/dashboard/manageItems'><FaList></FaList>Manage Items</NavLink>
@@ -39,7 +39,13 @@ const Dashboard = () => {
       <NavLink to='/dashboard/userHome'><FaHome></FaHome>User Home</NavLink>
       </li>
      <li>
-      <NavLink to='/dashboard/reservation'><FaHome></FaHome>Reservation</NavLink>
+      <NavLink to='/dashboard/payment'><FaHome></FaHome>Reservation</NavLink>
+      </li>
+     <li>
+      <NavLink to='/dashboard/history'><FaHome></FaHome> History</NavLink>
+      </li>
+     <li>
+      <NavLink to='/dashboard/paymentHistory'><FaHome></FaHome>Payment Real History</NavLink>
       </li>
      <li>
       <NavLink to='/dashboard/cart'><FaShoppingCart></FaShoppingCart>My cart ({cart.length})</NavLink>

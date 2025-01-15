@@ -12,12 +12,14 @@ import Swal from "sweetalert2";
 import userImg from "../../../assets/others/profile.png";
 import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../../Hooks/useCart";
+import useAdmin from "../../../Hooks/useAdmin";
 
 const NavBar = () => {
   const { logOut, user, loading } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
 
   const handleSignOut = () => {
     logOut()
@@ -120,6 +122,19 @@ const NavBar = () => {
           My Order
         </NavLink>
       </li>
+
+      {
+        user && isAdmin && <li><Link to='/dashboard/adminHome'>Dashboard</Link></li>
+      }
+      {
+        user && !isAdmin && <li><Link to='/dashboard/userHome'>Dashboard</Link></li>
+      }
+
+
+
+
+
+
       <li>
         <NavLink
           to="/dashboard/cart"
